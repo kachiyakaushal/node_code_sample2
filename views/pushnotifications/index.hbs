@@ -1,0 +1,145 @@
+<div class="m-4 commonactiondiv hide">
+   <button type="button" class="commonpublishnotif btn btn-success whitefont m-btn m-btn--custom fw-600 mr-2" data-status="1">Publish</button>
+   <button type="button" class="commondraftnotif btn btn-danger m-btn m-btn--custom fw-600"  data-status="2">Draft</button>
+   <span class="ml-5 loaderspan hide"></span>
+</div>
+
+<div class="m-4">
+   <ul class="statusul list-unstyled list-inline">
+      <li class="list-inline-item {{#eq "pushnotifications" surl}} active {{/eq}}">
+         <a href="/pushnotifications">All</a>
+      </li>
+      <li class="list-inline-item">/</li>
+      <li class="list-inline-item {{#eq "1" query.status}} active {{/eq}}">
+         <a href="/pushnotifications?status=1">Published</a>
+      </li>
+      <li class="list-inline-item">/</li>
+      <li class="list-inline-item {{#eq "2" query.status}} active {{/eq}}">
+         <a href="/pushnotifications?status=2">Draft</a>
+      </li>
+      <li class="list-inline-item">/</li>
+      <li class="list-inline-item {{#eq "0" query.sentstatus}} active {{/eq}}">
+         <a href="/pushnotifications?sentstatus=0">Pending</a>
+      </li>
+   </ul>
+</div>
+
+<div class="m-portlet m-portlet--mobile m-4 borderradiusbox">
+   <div class="m-portlet__body">
+      <div class="lighttxtcolor">
+         <form action="" method="GET">
+            <input type="hidden" name="sortBy" value="{{query.sortBy}}">
+            <input type="hidden" name="sortOrder" value="{{query.sortOrder}}">
+            <div class="m-form m-form--label-align-right m--margin-bottom-30">
+               <div class="row align-items-center justify-content-between">
+                  <div class="col-auto">                  
+                     <div class="m-form__group m-form__group--inline pt-0">
+                        <div class="m-form__label">
+                           <label>Show</label>
+                        </div>
+                        <div class="m-form__control selectdc">                        
+                           <select name="limit" class="form-control form-control-sm m-input m-input--solid">
+                              {{#each dropdownPages }}
+                              <option value="{{this}}" {{#eq this ../query.limit}} selected {{/eq}}>{{this}}</option>
+                              {{/each}}
+                              <option value="99999" {{#eq 99999 query.limit}} selected {{/eq}}>All</option>                    
+                           </select>                        
+                        </div>
+                        <span class="pl-2 m-form__control enttxt">Entries</span>
+                     </div>
+                     <div class="d-md-none m--margin-bottom-10"></div>
+                  </div>
+                  <div class="col-auto">
+                     <div class="m-input-icon m-input-icon--left tablesearch">
+                        <input type="text" name="search" class="form-control m-input m-input--transparent {{#if query.search}}focus{{/if}}" placeholder="Search" id="generalSearch" value="{{ query.search }}">
+                        <span class="m-input-icon__icon m-input-icon__icon--left">
+                           <span><i class="la la-search la-flip-horizontal"></i></span>
+                        </span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </form>
+
+         <div class="cus-table noborder table-responsive">
+            <table class="table m-table table-hover medwaction">
+               <thead class="thead-inverse">
+                  <tr>
+                     <th>
+                        <label class="m-checkbox m-checkbox--bold m-checkbox--square valignsuper">
+                           <input type="checkbox" class="commoncheckall">
+                           <span></span>
+                        </label>
+                     </th>
+                     <th>{{arrowUp "id" query }} {{arrowDown "id" query }} ID</th>
+                     <th>Vendor/User</th>
+                     <th>{{arrowUp "title" query }} {{arrowDown "title" query }} Title</th>
+                     <th>{{arrowUp "description" query }} {{arrowDown "description" query }} Description</th>
+                     <th nowrap>{{arrowUp "date" query }} {{arrowDown "date" query }} Date</th>
+                     <th nowrap>{{arrowUp "time" query }} {{arrowDown "time" query }} Time</th>
+                     <th>{{arrowUp "status" query }} {{arrowDown "status" query }} Status</th>
+                     <th>{{arrowUp "sentstatus" query }} {{arrowDown "sentstatus" query }} Sent Status</th>
+                     <th></th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {{#if totalrows}}
+                  {{#each totalrows }}
+                  <tr>
+                     <td class="align-middle ">
+                        {{#if 
+                           (or                              
+                              (ne status 1)
+                              (ne sentStatus 1)
+                           )
+                        }}
+                        <label class="m-checkbox m-checkbox--bold m-checkbox--square valignsuper">
+                           <input type="checkbox" class="commoncheck" value="{{id}}" data-title="{{title}}" data-date="{{moment date}}" data-time="{{time}}" data-type="{{type}}">
+                           <span></span>
+                        </label>
+                        {{/if}}
+                     </td>
+                     <td class="align-middle">{{id}}</td>
+                     <td class="align-middle">
+                        {{#ifCond type "==" "1"}}
+                        {{Shop.shopName}} (Vendor)
+                        {{else}}
+                        {{User.firstName}} {{User.lastName}} (User)
+                        {{/ifCond}}
+                     </td>
+                     <td class="align-middle">{{title}}</td>
+                     <td class="align-middle mxwpx-400">{{description}}</td>
+                     <td class="align-middle">{{moment datewithtime format="MM/DD/YYYY"}}</td>
+                     <td class="align-middle">{{moment datewithtime format="HH:mm A"}}</td>
+                     <td class="align-middle">{{pushnotistats status}}</td>
+                     <td class="align-middle">{{pushnotisentstats sentStatus}}</td>
+                     
+                     <td class="align-middle actiontd">
+                        {{#if 
+                           (or                              
+                              (ne status 1)
+                              (ne sentStatus 1)
+                           )
+                        }}
+                        <a href="/pushnotifications/edit/{{id}}" class=""><i class="fa fa-pencil-alt"></i></a>
+                        {{/if}}
+
+                        {{!-- <a href="/users/edit/{{userId}}" class=""><i class="fa fa-pencil-alt"></i></a> --}}
+                     </td>
+                  </tr>
+                  {{/each}}
+                  {{else}}
+                  <tr>
+                     <td colspan="10" class="text-center p-4">No records found</td>
+                  </tr>
+                  {{/if}}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="actions m-4">
+   {{> paginate }}
+</div>

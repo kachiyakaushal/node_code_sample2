@@ -1,0 +1,30 @@
+<div class="row align-items-center justify-content-between">
+   <div class="col-auto">
+      <div class="dataTables_info">
+         {{paginationTexts}}
+      </div>   
+   </div>
+   <div class="col-auto">
+      {{#or paginate.hasPreviousPages has_more }}
+      <ul class="cus-pagi pagination justify-content-end">
+         {{#if firstPageUrl}}
+         <li class="paginate_button page-item">
+            <a href="{{ firstPageUrl }}" class="page-link"><i class="fa fa-chevron-left"></i></a>
+         </li>
+         {{/if}}
+         
+         {{#each pages }}
+         <li class="paginate_button page-item {{#ifCond this.number '==' ../currentpage }}active{{/ifCond}}">
+            <a href="{{ this.url }}" class="page-link">{{ this.number }}</a>
+         </li>
+         {{/each}}
+
+         {{#if lastPageUrl}}
+         <li class="paginate_button page-item">
+            <a href="{{ lastPageUrl }}" class="page-link"><i class="fa fa-chevron-right"></i></a>
+         </li>
+         {{/if}}
+      </ul>
+      {{/or}}   
+   </div>
+</div>

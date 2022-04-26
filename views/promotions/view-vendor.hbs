@@ -1,0 +1,297 @@
+{{!-- Shop Details Starts --}}
+<div class="m-portlet m-4 borderradiusbox lighttxtcolor">
+   <form id="shop_edit_one" method="POST" action="/vendors/editdata" class="m-form m-form--fit1">
+   <input type="hidden" name="shopId" value="{{data.shopId}}" />
+   <input type="hidden" name="status" value="{{data.status}}" />
+   <div class="m-portlet__head">
+      <div class="m-portlet__head-caption">         
+         <img src="{{data.shopImageLink}}" id="customFileImg" class="ppimgsmall rounded-circle d-block m-auto" alt="">
+         <div class="cameraicon align-self-end">
+            <input type="file" name="shopImage" class="custom-file-input hide" onchange="updateVLogo(this, 'customFileImg')" id="customFile">
+            <label for="customFile"><i class="la la-camera"></i></label>
+         </div>
+
+         <div class="ml-3">            
+            <div class="d-block font-s-12 fw-600 mb-1">{{data.shopName}}</div>
+            <div class="d-block fw-500">
+               {{shopstatuses data.status}}               
+               (Contract Ends on: {{moment data.expiryDate format="MM/DD/YYYY"}})</div>
+         </div>
+      </div>
+      <div class="m-portlet__head-tools">
+         <div class="fw-500">{{promoCreditLeft}} Promotion Credit Left</div>
+      </div>
+   </div>
+   </form>
+</div>
+{{!-- Shop Details Ends --}}
+
+{{!-- Running Promotions Starts --}}
+<div class="m-4 mt-5">
+   <div class="row">
+      <div class="col text-right">
+         <a href="/promotions/vendorpromo/add/{{shopId}}?redirect={{fullUrl}}" class="btn btn-success whitefont m-btn m-btn--custom fw-600">Add New</a>
+      </div>
+   </div>
+</div>
+<div class="m-portlet m-portlet--mobile m-4 borderradiusbox">
+   <div class="m-portlet__head">
+      <div class="m-portlet__head-caption">
+         <div class="">            
+            <div class="d-block font-s-12 fw-600">Running Promotions ({{runningcount}})</div>
+         </div>         
+      </div>
+   </div>
+   <div class="m-portlet__body">
+      <div class="lighttxtcolor">
+         <div class="cus-table noborder table-responsive">
+            <table class="table m-table table-hover medwaction tablesortable">
+               <thead class="thead-inverse">
+                  <tr>
+                     <th>Sequence</th>
+                     <th>Vendor</th>
+                     <th>Status</th>
+                     {{!-- <th nowrap>Date Start</th>
+                     <th nowrap>Date End</th> --}}
+                     <th>Images</th>
+                     <th>Title</th>
+                     <th>Description</th>
+                     <th></th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {{#if runningrows}}
+                  {{#each runningrows }}
+                  <tr data-promotionid={{promotionId}} data-sequence={{sequence}}>
+                     <td class="align-middle">
+                        <div class="dragdiv">
+                           <i class="fa fa-chevron-up"></i>
+                           <i class="fa fa-chevron-down"></i>
+                        </div>
+                     </td>
+                     <td class="align-middle">{{Shop.shopName}}</td>
+                     <td class="align-middle">{{promotionstats status}}</td>
+                     {{!-- <td class="align-middle">{{moment startDate format="MM/DD/YYYY"}}</td>
+                     <td class="align-middle">{{moment endDate format="MM/DD/YYYY"}}</td> --}}
+                     <td class="align-middle">
+                        <img src="{{promotionImageUrl}}" class="borderradiussmall promoimg img-fluid d-block" alt="">
+                     </td>
+                     <td class="align-middle mxwpx-400">{{title}}</td>
+                     <td class="align-middle mxwpx-400">{{description}}</td>
+                     <td class="align-middle">
+                        <a href="/promotions/edit/{{promotionId}}?redirect={{../fullUrl}}" class="bigpencil mr-3"><i class="fa fa-pencil-alt"></i></a>
+                        {{#if 
+                           (or                              
+                              (eq status 1)
+                              (eq status 4)
+                           )
+                        }}
+                        <span class="m-switch m-switch--sm m-switch--success">
+                           <label class="m-0 d-block">
+                              <input type="checkbox" {{#eq status 1}}checked="checked"{{/eq}} class="promotionajaxbtn promotioncheck{{promotionId}}" data-cvalue="{{promotionId}}">
+                              <span></span>
+                           </label>
+                        </span>
+                        <div class="custloader promotionloader hide promotionl{{promotionId}}">
+                           <div class="m-spinner m-spinner--brand m-spinner--sm"></div>
+                           <div class="m-spinner m-spinner--primary m-spinner--sm"></div>
+                           <div class="m-spinner m-spinner--success m-spinner--sm"></div>
+                           <div class="m-spinner m-spinner--warning m-spinner--sm"></div>
+                           <div class="m-spinner m-spinner--danger m-spinner--sm"></div>
+                        </div>
+                        {{/if}}
+                     </td>
+                  </tr>
+                  {{/each}}
+                  {{else}}
+                  <tr>
+                     <td colspan="10" class="text-center">No records found</td>
+                  </tr>
+                  {{/if}}
+               </tbody>
+            </table>
+         </div>
+
+      </div>
+   </div>
+</div>
+<div class="actions m-4 ">
+   {{> paginate }}
+</div>
+{{!-- Running Promotions Ends --}}
+
+{{!-- Requested Promotions Starts --}}
+<div class="m-portlet m-portlet--mobile m-4 mt-5 borderradiusbox">
+   <div class="m-portlet__head">
+      <div class="m-portlet__head-caption">
+         <div class="">            
+            <div class="d-block font-s-12 fw-600">Promotion Request ({{requestedcount}})</div>
+         </div>         
+      </div>
+   </div>
+   <div class="m-portlet__body">
+      <div class="lighttxtcolor">
+         <div class="cus-table noborder table-responsive">
+            <table class="table m-table table-hover medwaction">
+               <thead class="thead-inverse">
+                  <tr>
+                     <th>Vendor</th>
+                     {{!-- <th nowrap>Date Start</th>
+                     <th nowrap>Date End</th> --}}
+                     <th>Status</th>
+                     <th>Images</th>
+                     <th>Title</th>
+                     <th>Description</th>
+                     <th></th>
+                     <th></th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {{#if requestedrows}}
+                  {{#each requestedrows }}
+                  <tr data-promotionid={{promotionId}} data-sequence={{sequence}}>
+                     <td class="align-middle">{{Shop.shopName}}</td>
+                     {{!-- <td class="align-middle">{{moment startDate format="MM/DD/YYYY"}}</td>
+                     <td class="align-middle">{{moment endDate format="MM/DD/YYYY"}}</td> --}}
+                     <td class="align-middle">{{promotionstats status}}</td>
+                     <td class="align-middle">
+                        <a class="cur-pointer" data-toggle="modal" data-target="#promoImageModal" data-imageurl="{{promotionImageUrl}}" data-vendorname="{{Shop.shopName}}">
+                           <img src="{{promotionImageUrl}}" class="borderradiussmall promoimg img-fluid d-block" alt="">
+                        </a>
+                     </td>
+                     <td class="align-middle mxwpx-400">{{title}}</td>
+                     <td class="align-middle mxwpx-400">{{description}}</td>
+                     <td class="align-middle">
+                        <a href="/promotions/edit/{{promotionId}}?redirect={{../fullUrl}}" class="bigpencil mr-3"><i class="fa fa-pencil-alt"></i></a>
+                     </td>
+                     <td class="align-middle">
+                        <a href="javascript:;" data-cvalue="{{promotionId}}" class="approvepromo mb-2 d-block font-s-11 fw-500 btn btn-success btn-sm m-btn m-btn--custom1">Approve</a>
+                        <a href="javascript:;" data-cvalue="{{promotionId}}" class="declinepromo d-block font-s-11 fw-500 btn btn-danger btn-sm m-btn m-btn--custom1">Decline</a>
+                     </td>
+                  </tr>
+                  {{/each}}
+                  {{else}}
+                  <tr>
+                     <td colspan="10" class="text-center">No records found</td>
+                  </tr>
+                  {{/if}}
+               </tbody>
+            </table>
+         </div>
+
+      </div>
+   </div>
+</div>
+{{!-- Requested Promotions Ends --}}
+
+{{!-- Requested Promotions Starts --}}
+<div class="m-portlet m-portlet--mobile m-4 mt-5 borderradiusbox">
+   <div class="m-portlet__head">
+      <div class="m-portlet__head-caption">
+         <div class="">            
+            <div class="d-block font-s-12 fw-600">Promotion Rejected ({{rejectedcount}})</div>
+         </div>         
+      </div>
+   </div>
+   <div class="m-portlet__body">
+      <div class="lighttxtcolor">
+         <div class="cus-table noborder table-responsive">
+            <table class="table m-table table-hover medwaction">
+               <thead class="thead-inverse">
+                  <tr>
+                     <th>Vendor</th>
+                     <th>Status</th>
+                     <th>Images</th>
+                     <th>Title</th>
+                     <th>Description</th>
+                     <th>Decline Message</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {{#if rejectedrows}}
+                  {{#each rejectedrows }}
+                  <tr data-promotionid={{promotionId}} data-sequence={{sequence}}>
+                     <td class="align-middle">{{Shop.shopName}}</td>
+                     {{!-- <td class="align-middle">{{moment startDate format="MM/DD/YYYY"}}</td>
+                     <td class="align-middle">{{moment endDate format="MM/DD/YYYY"}}</td> --}}
+                     <td class="align-middle">{{promotionstats status}}</td>
+                     <td class="align-middle">
+                        <a class="cur-pointer" data-toggle="modal" data-target="#promoImageModal" data-imageurl="{{promotionImageUrl}}" data-vendorname="{{Shop.shopName}}">
+                           <img src="{{promotionImageUrl}}" class="borderradiussmall promoimg img-fluid d-block" alt="">
+                        </a>
+                     </td>
+                     <td class="align-middle mxwpx-400">{{title}}</td>
+                     <td class="align-middle mxwpx-400">{{description}}</td>
+                     <td class="align-middle mxwpx-400">{{declineMessage}}</td>
+                  </tr>
+                  {{/each}}
+                  {{else}}
+                  <tr>
+                     <td colspan="10" class="text-center">No records found</td>
+                  </tr>
+                  {{/if}}
+               </tbody>
+            </table>
+         </div>
+
+      </div>
+   </div>
+</div>
+{{!-- Requested Promotions Ends --}}
+
+<!--begin::Modal-->
+<div class="modal fade inactivepromo" id="inactivepromo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+         <form id="inactivepromo_add" method="POST" action="/promotions/vendorpromo/decline" class="m-form m-form--fit1">
+         <input type="hidden" name="redirect" value="{{fullUrl}}" />
+         <input type="hidden" name="promotionId" class="promotionId" value="" />
+         <input type="hidden" name="status" value="2" />
+         <input type="hidden" name="vendorStatus" value="2" />
+            <div class="modal-header">
+               <h4 class="modal-title1" id="exampleModalLabel">Request Declined</h4>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <div class="form-group m-form__group1">
+                  <div class="row align-items-center1">
+                     <div class="col-12 col-xl-2">
+                        <label class="m-xl-0" for="declineMessage">Message</label>
+                     </div>
+                     <div class="col">
+                        <div class="m-input-icon m-input-icon--right">
+                           <textarea name="declineMessage" class="form-control m-input" id="declineMessage" rows="6"></textarea>                     
+                           {{!-- <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span> --}}
+                        </div>                  
+                     </div>
+                  </div>                  
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button type="submit" class="font-s-11 fw-500 btn btn-success">Send</button>
+            </div>
+         </form>   
+      </div>
+   </div>
+</div>
+<!--end::Modal-->
+
+<!--begin::Modal-->
+<div class="modal fade bd-example-modal-lg" id="promoImageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title1" id="exampleModalLabel"></h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <img src="" alt="" class="m-auto d-block img-fluid">
+         </div>   
+      </div>
+   </div>
+</div>
+<!--end::Modal-->

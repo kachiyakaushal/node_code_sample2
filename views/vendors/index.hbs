@@ -1,0 +1,91 @@
+<div class="m-portlet m-portlet--mobile m-4 borderradiusbox">
+   <div class="m-portlet__body pt-4 pb-4">
+      <div class="lighttxtcolor">
+         <form action="" method="GET">
+            {{!-- <input type="hidden" name="sortBy" value="{{query.sortBy}}"> --}}
+            <input type="hidden" name="sortOrder" value="{{query.sortOrder}}">
+            <div class="m-form m-form--label-align-right">
+               <div class="row align-items-center justify-content-between1">
+                  <div class="col-auto">
+                     <div class="m-form__group m-form__group--inline pt-0">
+                        <div class="m-form__label bigsorticons">
+                           {{sortIcons query}}
+                        </div>
+                        <div class="m-form__control bigselect selectdc">                        
+                           <select name="sortBy" class="form-control form-control-sm m-input m-input--solids">
+                              <option value="createdAt" {{#eq "createdAt" query.sortBy}} selected {{/eq}}>Sort By Registered Date </option>
+                              <option value="expiryDate" {{#eq "expiryDate" query.sortBy}} selected {{/eq}}>Sort By Expiry Date</option>
+                              <option value="shopTotalUsers" {{#eq "shopTotalUsers" query.sortBy}} selected {{/eq}}>Sort By Total User</option>
+                              <option value="shopTotalPoints" {{#eq "shopTotalPoints" query.sortBy}} selected {{/eq}}>Sort By Total Earned</option>
+                           </select>                        
+                        </div>                        
+                     </div>
+                     <div class="d-md-none m--margin-bottom-10"></div>
+                  </div>
+                  <div class="col-auto">
+                     <div class="m-input-icon m-input-icon--left tablesearch bigsearchfonts">
+                        <input type="text" name="search" class="form-control m-input m-input--transparent {{#if query.search}}focus{{/if}}" placeholder="Search" id="generalSearch" value="{{ query.search }}">
+                        <span class="m-input-icon__icon m-input-icon__icon--left">
+                           <span><i class="la la-search la-flip-horizontal"></i></span>
+                        </span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
+
+<div class="lighttxtcolor m-4 mt-5">
+   {{#if totalrows}}
+      <div class="row">
+      {{#each totalrows }}
+         <div class="col-md-6 col-lg-4 col-xl-3 mb-twotwo">
+            <div class="m-portlet p-4 text-center mb-0 h-100">
+                  <a href="/vendors/edit/{{shopId}}" class="m-nav-grid__texta">{{shopName}}</a>
+                  {{#if shopImageLink}}
+                  <a href="/vendors/edit/{{shopId}}"><img src="{{shopImageLink}}" class="ppimgmed img-fluid d-block ml-auto mr-auto mt-2" alt=""></a>
+                  {{/if}}
+                  <div class="lightccccolor mt-4 fw-500 font-s-9">Registered On:</div>
+                  <div class="pporangesmalltxt fw-500 mt-2">{{moment createdAt format="MM/DD/YYYY"}}</div>
+                  <div class="lightccccolor mt-3 fw-500 font-s-9">Expire on:</div>
+                  <div class="pporangesmalltxt fw-500 mt-2">{{moment expiryDate format="MM/DD/YYYY"}}</div>
+                  <div class="m-nav-grid__texta mt-3" style="word-break: break-all;">{{User.email}}</div>
+                  <div class="row text-center">
+                     <div class="col mt-5">
+                        <div class="vendCounts fw-500">
+                           {{#if shopTotalUsers}}
+                              {{shopTotalUsers}}
+                           {{else}}
+                              0
+                           {{/if}}
+                        </div>
+                        <div class="lightccccolor mt-2 fw-500">Total User</div>
+                     </div>
+                     <div class="col mt-5">
+                        <div class="vendCounts fw-500">
+                           {{#if shopTotalPoints}}
+                              {{shopTotalPoints}}
+                           {{else}}
+                              0
+                           {{/if}}
+                        </div>
+                        <div class="lightccccolor mt-2 fw-500">Total Spent</div>
+                     </div>
+                  </div>
+               
+            </div>
+         </div>
+      {{/each}}
+      </div>
+
+      <div class="actions mt-4 ">
+         {{> paginate }}
+      </div>
+   {{else}}
+      <div class="m-portlet mt-5">
+         <h5 class="text-center p-4">No records found</h5>
+      </div>
+   {{/if}}
+</div>

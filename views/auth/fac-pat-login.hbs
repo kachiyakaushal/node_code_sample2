@@ -1,0 +1,71 @@
+
+<div class="m-grid__item m-grid__item--fluid  m-grid__item--order-tablet-and-mobile-1  m-login__wrapper">
+	<!--begin::Head-->
+	{{!-- <div class="m-login__head">
+		<span>Don't have an account?</span>
+		<a href="/admin/register" class="m-link m--font-danger">Sign Up</a>
+	</div> --}}
+	<!--end::Head-->
+
+	<!--begin::Body-->
+	<div class="m-login__body">
+
+		<!--begin::Signin-->
+		<div class="m-login__signin">
+			<div class="m-login__title">
+				<h3>Sign in to your WeDoCare portal</h3>
+			</div>
+
+			{{> messages }}
+
+			<!--begin::Form-->
+			<form class="m-login__form m-form mt-0 mb-0" id="login_form" action="{{actionurl}}" method="POST">
+				<div class="form-group m-form__group">
+					<input class="form-control m-input" type="email" placeholder="Email Address" name="email">
+				</div>
+				<div class="form-group m-form__group">
+					<input class="form-control m-input m-login__form-input--last" type="password"
+						placeholder="Password" name="password">
+				</div>
+				<div class="form-group m-form__group">
+					<select class="form-control m-input" name="accountType" required>
+						<option value="">-- Select Login Type --</option>
+						<option value="0">Facility Login</option>
+						<option value="1">Physician Login</option>
+						<option value="2">Staff Login</option>
+					</select>
+				</div>
+				<!--begin::Action-->
+				<div class="m-login__action">
+					<a href="{{actionurl}}/forgotpassword" class="m-link">
+						<span>Forgot Password ?</span>
+					</a>
+					<button type="submit" class="btn btn-metal m-btn m-btn--pill m-btn--custom m-btn--air m-login__btn m-login__btn--primary">Sign In</button>
+				</div>
+				<!--end::Action-->
+			</form>
+			<!--end::Form-->
+
+			<div class="m-login__form-divider">
+				<div class="m-divider">
+					<span></span>
+					<span>OR</span>
+					<span></span>
+				</div>
+			</div>
+			<div class="row mt-5">
+				<div class="col-md-6 text-right">
+					<a href="/member/auth" class="btn m-btn--pill m-btn--air btn-metal btn-md d-block">Member and Patients Login</a>
+				</div>
+				<div class="col-md-6 text-left">
+					<a href="/facility/auth" class="btn m-btn--pill m-btn--air btn-metal btn-md d-block">Physician and Facility Login</a>
+				</div>
+			</div>
+
+		</div>
+		<!--end::Signin-->
+
+	</div>
+	<!--end::Body-->
+</div>
+	

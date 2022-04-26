@@ -1,0 +1,592 @@
+{{!-- Shop Details Starts --}}
+<div class="m-portlet m-4 borderradiusbox lighttxtcolor">
+   <form id="shop_edit_one" method="POST" action="/vendors/editdata" class="m-form m-form--fit1">
+   <input type="hidden" name="shopId" value="{{data.shopId}}" />
+   {{!-- <input type="hidden" name="status" value="{{data.status}}" /> --}}
+   <div class="m-portlet__head">
+      <div class="m-portlet__head-caption">
+         
+         <img src="{{data.shopImageLink}}" id="customFileImg" class="ppimgsmall rounded-circle d-block m-auto" alt="">
+         <div class="cameraicon align-self-end1">
+            <input type="file" name="shopImage" class="custom-file-input hide" onchange="updateVLogo(this, 'customFileImg')" id="customFile">
+            <label for="customFile"><i class="la la-camera"></i></label>
+         </div>
+
+         <div class="ml-3">            
+            <div class="d-block font-s-12 fw-600 mb-1">{{data.shopName}}</div>
+            <div class="d-block fw-500">
+               {{shopstatuses data.status}}               
+               (Contract Ends on: {{moment data.expiryDate format="MM/DD/YYYY"}})</div>
+         </div>         
+      </div>
+      <div class="m-portlet__head-tools">
+         <div class="mr-3">
+            <img src="{{qrurlr}}" alt="QR Code" class="img-fluid qrcodeimg">
+         </div>
+         <div>
+            <span class="m-switch m-switch--success">
+               <label class="m-0 d-block">
+                  <input type="checkbox" {{#if data.status}}checked="checked"{{/if}} class="vsajaxbtn" data-cvalue="{{data.shopId}}">
+                  <span></span>
+               </label>
+            </span>
+            {{!-- <div class="custloader vsajaxloader hide">
+               <div class="m-spinner m-spinner--brand m-spinner--sm"></div>
+               <div class="m-spinner m-spinner--primary m-spinner--sm"></div>
+               <div class="m-spinner m-spinner--success m-spinner--sm"></div>
+               <div class="m-spinner m-spinner--warning m-spinner--sm"></div>
+               <div class="m-spinner m-spinner--danger m-spinner--sm"></div>
+            </div> --}}
+         </div>
+      </div>
+   </div>
+   <div class="m-portlet__body bgwhitelight brbottomlr">
+      <div class="form-group m-form__group1 row mt-md-4">
+         <div class="col-md-4">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="mxnRunningPromo">Max Running Promo</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="text" name="mxnRunningPromo" value="{{data.mxnRunningPromo}}" id="mxnRunningPromo" class="form-control m-input" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 mob-mt-3">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="categoryText">Category</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="text" name="categoryText" value="{{data.categoryText}}" id="categoryText" class="form-control m-input" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>
+               </div>
+            </div>
+         </div>         
+      </div>
+      <div class="form-group m-form__group1 row mt-md-4">
+         <div class="col-md-4">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="businessSsm">Business SSM</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="text" name="businessSsm" value="{{data.businessSsm}}" id="businessSsm" class="form-control m-input" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 mob-mt-3">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="businessName">Business Name</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="text" name="businessName" value="{{data.businessName}}" id="businessName" class="form-control m-input" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>                  
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 mob-mt-3">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="companyName">Company Name</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="text" name="companyName" value="{{data.companyName}}" id="companyName" class="form-control m-input" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>                  
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="form-group m-form__group1 row mt-md-4">
+         <div class="col-md-4">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="shopAddress">Shop Address</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <textarea name="shopAddress" class="form-control m-input" id="shopAddress" rows="2" required>{{data.shopAddress}}</textarea>
+                  </div>                  
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 mob-mt-3">
+            <div class="row align-items-center">
+                <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="latitude">Latitude</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input required type="number" pattern="-?\d{1,3}\.\d+" min="0" name="latitude" value="{{data.latitude}}" id="latitude" class="form-control m-input" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>                  
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 mob-mt-3">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="longtitude">Longtitude</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input required type="number" pattern="-?\d{1,3}\.\d+" min="0" name="longtitude" value="{{data.longtitude}}" id="longtitude" class="form-control m-input" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>                  
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="form-group m-form__group1 row mt-md-4">
+         <div class="col-md-4">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="username">Username</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="text" name="username" value="{{data.User.username}}" id="username" class="form-control m-input" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>                  
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 mob-mt-3">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="newPassword">Password</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="password" name="newPassword" id="newPassword" class="form-control m-input" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>                  
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 mob-mt-3">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="confirmPassword">Confirm Password</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="password" name="confirmPassword" id="confirmPassword" class="form-control m-input" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>                  
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row mt-5 align-items-center">
+         <div class="col-lg-12 m--valign-middle">
+            <button type="submit" class="btn btn-primary m-btn m-btn--custom fw-600">Update</button>
+         </div>
+      </div>
+   </div>
+   </form>
+</div>
+{{!-- Shop Details Ends --}}
+
+{{!-- Contact Starts --}}
+<div class="m-portlet m-4 mt-5 borderradiusbox lighttxtcolor">
+   <form id="shop_edit_two" method="POST" action="/vendors/editdata" class="m-form m-form--fit1">
+   <input type="hidden" name="shopId" value="{{data.shopId}}" />
+   <div class="m-portlet__head">
+      <div class="m-portlet__head-caption">
+         <div class="">            
+            <div class="d-block font-s-12 fw-600">Contact</div>
+         </div>         
+      </div>
+   </div>
+   <div class="m-portlet__body bgwhitelight brbottomlr">
+      <div class="form-group m-form__group1 row">
+         <div class="col-md-4">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="firstName">First Name</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="text" name="firstName" value="{{data.User.firstName}}" id="firstName" class="form-control m-input" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 mob-mt-3">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="email">Email</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="email" name="email" value="{{data.User.email}}" id="email" class="form-control m-input" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 mob-mt-3">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="phone">Phone Number</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="text" name="phone" value="{{data.User.phone}}" id="phone" class="form-control m-input" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>                  
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="form-group m-form__group1 row mt-md-4">
+         <div class="col-md-4">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="contactPersonNumber">Contact Person Number</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="text" name="contactPersonNumber" value="{{data.contactPersonNumber}}" id="contactPersonNumber" class="form-control m-input" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>                  
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 mob-mt-3">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="companyEmail">Company Email</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="email" name="companyEmail" value="{{data.companyEmail}}" id="companyEmail" class="form-control m-input" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>                  
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 mob-mt-3">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="companyPhone">Company Phone Number</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="text" name="companyPhone" value="{{data.companyPhone}}" id="companyPhone" class="form-control m-input" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>                  
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="form-group m-form__group1 row mt-md-4">
+         <div class="col-md-4">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="agentName">Agent Name</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="text" name="agentName" value="{{data.agentName}}" id="agentName" class="form-control m-input" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>                  
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 mob-mt-3">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="agentEmail">Agent Email</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="email" name="agentEmail" value="{{data.agentEmail}}" id="agentEmail" class="form-control m-input" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>                  
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 mob-mt-3">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="agentPhoneNo">Agent Phone Number</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="text" name="agentPhoneNo" value="{{data.agentPhoneNo}}" id="agentPhoneNo" class="form-control m-input" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>                  
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row mt-5 align-items-center">
+         <div class="col-lg-12 m--valign-middle">
+            <button type="submit" class="btn btn-primary m-btn m-btn--custom fw-600">Update</button>
+         </div>
+      </div>
+   </div>
+   </form>
+</div>
+{{!-- Contact Ends --}}
+
+{{!-- Document Upload Starts --}}
+<div class="m-portlet m-4 mt-5 borderradiusbox lighttxtcolor">
+   <form id="shop_documents" method="POST" action="/vendors/editdata"  class="m-form m-form--fit1">
+   <input type="hidden" name="shopId" value="{{data.shopId}}" />
+   <div class="m-portlet__head">
+      <div class="m-portlet__head-caption">
+         <div class="">            
+            <div class="d-block font-s-12 fw-600">Document Upload</div>
+         </div>         
+      </div>
+   </div>
+   <div class="m-portlet__body bgwhitelight brbottomlr">
+      <div class="row">
+         <div class="col-12 col-lg-6 filelistsdiv">
+            {{#if data.ShopDocuments}}
+               {{#each data.ShopDocuments }}
+               <div class="filelistbox">
+                  <div class="row align-items-center ">
+                  <div class="col m--valign-middle">
+                     <div class="fw-500 font-s-12">
+                        <a href="{{docUrl}}" target="_blank">{{name}}</a>
+                     </div>
+                  </div>
+                  <div class="col-auto m--valign-middle text-right actiontd">
+                     <a href="/vendors/docupload/{{shopId}}/delete/{{docId}}" class="deletealert"><i class="fa fa-times"></i></a>
+                  </div>
+                  </div>
+               </div>
+               {{/each}}
+            {{else}}
+               <div class="nodocsmsg text-center">
+                  <h5 class="mb-0 lighttxtcolor">No documnets uploaded</h5>
+               </div>
+            {{/if}}
+         </div>
+         <div class="col-12 col-lg-6 mt-lg-0 mt-md-4">
+            <div class="m-dropzone dropzone" action="/vendors/docupload/{{data.shopId}}/addnew" id="m-dropzone-one">
+               <div class="m-dropzone__msg dz-message needsclick">
+                  <div class="dropupldiv d-block mb-2">
+                     <i class="la la-cloud-upload"></i>
+                  </div>
+                  <h5 class="mb-0">Drag and drop a file here or click to upload</h5>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   </form>
+</div>
+{{!-- Document Upload Ends --}}
+
+{{!-- Account Role Starts --}}
+<div class="m-portlet m-4 mt-5 borderradiusbox lighttxtcolor">
+   <input type="hidden" name="shopId" value="{{data.shopId}}" />
+   <div class="m-portlet__head">
+      <div class="m-portlet__head-caption">
+         <div class="">            
+            <div class="d-block font-s-12 fw-600">Account Role</div>
+         </div>         
+      </div>
+      <div class="m-portlet__head-tools">
+         {{!-- <a class="btn btn-success whitefont m-btn m-btn--custom fw-600 mr-3 ">Add Account</a> --}}
+         <a href="/vendors/accountrole/add/{{data.shopId}}" class="btn btn-success whitefont m-btn m-btn--custom fw-600">Create Account</a>
+      </div>
+   </div>
+   <div class="m-portlet__body bgwhitelight brbottomlr">
+      <div class="cus-table noborder table-responsive lighttxtcolor">
+         <table class="table m-table table-hover medwaction" id="sort_ctbl">
+            <thead class="thead-inverse">
+               <tr>
+                  <th>Full Name</th>
+                  <th>{{arrowUpLocal 2 "asc" "sort_ctbl" }} {{arrowDownLocal 2 "desc" "sort_ctbl" }} Username</th>
+                  <th>{{arrowUpLocal 3 "asc" "sort_ctbl" }} {{arrowDownLocal 3 "desc" "sort_ctbl" }} E-mail</th>
+                  <th>{{arrowUpLocal 4 "asc" "sort_ctbl" }} {{arrowDownLocal 4 "desc" "sort_ctbl" }} Phone</th>
+                  <th>{{arrowUpLocal 5 "asc" "sort_ctbl" }} {{arrowDownLocal 5 "desc" "sort_ctbl" }} Role</th>
+                  <th></th>
+               </tr>
+            </thead>
+            <tbody>
+               {{#if data.VendorShops}}
+               {{#each data.VendorShops }}
+               <tr class="rowitem">
+                  <td class="align-middle">{{User.firstName}} {{User.lastName}}</td>
+                  <td class="align-middle">{{User.username}}</td>
+                  <td class="align-middle">{{User.email}}</td>
+                  <td class="align-middle">{{User.phone}}</td>
+                  <td class="align-middle">{{accountroles User.role}}</td>
+                  <td class="align-middle actiontd">
+                     <a href="/vendors/{{../data.shopId}}/accountrole/edit/{{User.userId}}" class=""><i class="fa fa-pencil-alt"></i></a>
+                  </td>
+               </tr>
+               {{/each}}
+               {{else}}
+               <tr>
+                  <td colspan="10" class="text-center p-4">No records found</td>
+               </tr>
+               {{/if}}
+            </tbody>
+         </table>
+      </div>
+   </div>
+</div>
+{{!-- Account Role Ends --}}
+
+{{!-- Tier Starts --}}
+<div class="m-portlet m-4 mt-5 borderradiusbox lighttxtcolor">
+   <form id="shop_tier" method="POST" action="/vendors/editdata"  class="m-form m-form--fit1">
+   <input type="hidden" name="shopId" value="{{data.shopId}}" />
+   <div class="m-portlet__head">
+      <div class="m-portlet__head-caption">
+         <div class="">            
+            <div class="d-block font-s-12 fw-600">Tier</div>
+         </div>         
+      </div>
+      <div class="m-portlet__head-tools">
+         <a href="/vendors/tier/add/{{data.shopId}}" class="btn btn-success whitefont m-btn m-btn--custom fw-600">Add Tier</a>
+      </div>
+   </div>
+   <div class="m-portlet__body bgwhitelight brbottomlr">
+      {{#if data.ShopMembershipTiers}}
+         {{#each data.ShopMembershipTiers }}
+            <div class="yellowborderbox">
+               <div class="row align-items-center ">
+               <div class="col-lg-10 m--valign-middle">
+                  <div class="blackmedtitle fw-600 font-s-12">{{tierName}}</div>
+                  <div class="lighttxtcolor">{{description}}</div>
+               </div>
+               <div class="col-lg-2 m--valign-middle text-right">
+                  <a href="/vendors/tier/edit/{{tierId}}" class="bigpencil mr-3"><i class="fa fa-pencil-alt"></i></a>
+                  <span class="m-switch m-switch--sm m-switch--success">
+                     <label class="m-0 d-block">
+                        <input type="checkbox" {{#if status}}checked="checked"{{/if}} class="tierajaxbtn tiercheck{{tierId}}" data-cvalue="{{tierId}}">
+                        <span></span>
+                     </label>
+                  </span>
+                  <div class="custloader tierloader hide tierl{{tierId}}">
+                     <div class="m-spinner m-spinner--brand m-spinner--sm"></div>
+                     <div class="m-spinner m-spinner--primary m-spinner--sm"></div>
+                     <div class="m-spinner m-spinner--success m-spinner--sm"></div>
+                     <div class="m-spinner m-spinner--warning m-spinner--sm"></div>
+                     <div class="m-spinner m-spinner--danger m-spinner--sm"></div>
+                  </div>
+               </div>
+               </div>
+            </div>
+         {{/each}}
+      {{/if}}
+   </div>
+   </form>
+</div>
+{{!-- Tier Ends --}}
+
+{{!-- Transaction History Starts --}}
+<div class="m-portlet m-4 mt-5 borderradiusbox lighttxtcolor">
+   <div class="m-portlet__head">
+      <div class="m-portlet__head-caption">
+         <div class="">            
+            <div class="d-block font-s-12 fw-600">Transaction History</div>
+         </div>         
+      </div>
+      <div class="m-portlet__head-tools">
+         <button type="button" class="exportbutton btn btn-success whitefont m-btn m-btn--custom fw-600" data-export=".exporttransactions">Export CSV</button>
+      </div>
+   </div>
+   <div class="m-portlet__body bgwhitelight brbottomlr">
+      <div class="cus-table noborder table-responsive lighttxtcolor">
+         <table class="table m-table table-hover medwaction exporttransactions" id="sort_transaction">
+            <thead class="thead-inverse">
+               <tr>
+                  <th class="excludecheckbox">
+                     <label class="m-checkbox m-checkbox--bold m-checkbox--square valignsuper">
+                        <input type="checkbox" class="commoncheckall">
+                        <span></span>
+                     </label>
+                  </th>
+                  <th>{{arrowUpLocal 2 "asc" "sort_transaction" }} {{arrowDownLocal 2 "desc" "sort_transaction" }} ID</th>
+                  <th>{{arrowUpLocal 3 "asc" "sort_transaction" }} {{arrowDownLocal 3 "desc" "sort_transaction" }} Transaction Reference No</th>
+                  <th>{{arrowUpLocal 4 "asc" "sort_transaction" }} {{arrowDownLocal 4 "desc" "sort_transaction" }} Name</th>
+                  <th>{{arrowUpLocal 5 "asc" "sort_transaction" }} {{arrowDownLocal 5 "desc" "sort_transaction" }} Date</th>
+                  <th>{{arrowUpLocal 6 "asc" "sort_transaction" }} {{arrowDownLocal 6 "desc" "sort_transaction" }} Amount</th>
+                  <th>Service</th>
+                  {{!-- <th>ImageUrl</th> --}}
+                  {{!-- <th>Image</th> --}}
+                  {{!-- <th class="excludeactions"></th> --}}
+               </tr>
+            </thead>
+            <tbody>
+               {{#if data.ConsumerTransactions}}
+               {{#each data.ConsumerTransactions }}
+               <tr class="rowitem excludethis">
+                  <td class="align-middle excludecheckbox">
+                     <label class="m-checkbox m-checkbox--bold m-checkbox--square valignsuper">
+                        <input type="checkbox" class="commoncheck">
+                        <span></span>
+                     </label>
+                  </td>
+                  <td class="align-middle">{{id}}</td>
+                  <td class="align-middle">{{transactionId}}</td>
+                  <td class="align-middle">                     
+                     {{User.firstName}} {{User.lastName}} ({{User.username}})                    
+                  </td>
+                  <td class="align-middle">{{moment transactionDate format="MM/DD/YYYY"}}</td>
+                  <td class="align-middle">{{points}}</td>
+                  <td class="align-middle mxwpx-400">
+                     {{#if serviceArray}}                     
+                        {{#each serviceArray }} 
+                           <span class="m-badge m-badge--metal m-badge--wide m-badge--rounded mb-1">{{serviceName}}</span>
+                        {{/each}}
+                     {{/if}}                     
+                  </td>
+                       <td class="align-middle actiontd">
+                          {{#ifCond pointImageUrl "!=" null}}
+                        <a class="cur-pointer" data-toggle="modal" data-target="#vendorImageModal" data-imageurl="{{pointImageUrl}}"><i class="fa fa-paperclip"></i></a>
+                        {{/ifCond}}
+                     </td>
+               </tr>
+               {{/each}}
+               {{else}}
+               <tr>
+                  <td colspan="10" class="text-center p-4">No records found</td>
+               </tr>
+               {{/if}}               
+            </tbody>
+         </table>
+      </div>
+   </div>
+</div>
+{{!-- Transaction History Ends --}}
+{{!-- ImagesModal --}}
+<div class="modal fade bd-example-modal-lg" id="vendorImageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content" style="max-height:100%;"> 
+         <div class="modal-header" >
+            <h4 class="modal-title1" id="exampleModalLabel"></h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <img src="" alt="" class="m-auto d-block img-fluid wrapper" style="height:100%; width:100%;" >
+         </div>   
+      </div>
+   </div>
+</div>

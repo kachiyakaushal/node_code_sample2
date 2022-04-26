@@ -1,0 +1,120 @@
+<div class="m-4 mt-5">
+   <div class="row">
+      <div class="col text-right">
+         <a href="/promotions/add?redirect={{fullUrl}}" class="btn btn-success whitefont m-btn m-btn--custom fw-600">Add New</a>
+      </div>
+   </div>
+</div>
+
+<div class="m-portlet m-portlet--mobile m-4 borderradiusbox">
+   <div class="m-portlet__body">
+      <div class="lighttxtcolor">
+         <form action="" method="GET">
+            <input type="hidden" name="sortBy" value="{{query.sortBy}}">
+            <input type="hidden" name="sortOrder" value="{{query.sortOrder}}">
+            <div class="m-form m-form--label-align-right m--margin-bottom-30">
+               <div class="row align-items-center justify-content-between">
+                  <div class="col-auto">                  
+                     <div class="m-form__group m-form__group--inline pt-0">
+                        <div class="m-form__label">
+                           <label>Show</label>
+                        </div>
+                        <div class="m-form__control selectdc">                        
+                           <select name="limit" class="form-control form-control-sm m-input m-input--solid">
+                              {{#each dropdownPages }}
+                              <option value="{{this}}" {{#eq this ../query.limit}} selected {{/eq}}>{{this}}</option>
+                              {{/each}}
+                              <option value="99999" {{#eq 99999 query.limit}} selected {{/eq}}>All</option>                    
+                           </select>                        
+                        </div>
+                        <span class="pl-2 m-form__control enttxt">Entries</span>
+                     </div>
+                     <div class="d-md-none m--margin-bottom-10"></div>
+                  </div>
+                  <div class="col-auto">
+                     <div class="m-input-icon m-input-icon--left tablesearch">
+                        <input type="text" name="search" class="form-control m-input m-input--transparent {{#if query.search}}focus{{/if}}" placeholder="Search" id="generalSearch" value="{{ query.search }}">
+                        <span class="m-input-icon__icon m-input-icon__icon--left">
+                           <span><i class="la la-search la-flip-horizontal"></i></span>
+                        </span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </form>
+
+         <div class="cus-table noborder table-responsive">
+            <table class="table m-table table-hover medwaction tablesortable">
+               <thead class="thead-inverse">
+                  <tr>
+                     <th>Sequence</th>
+                     {{!-- <th nowrap>Date Start</th>
+                     <th nowrap>Date End</th> --}}
+                     <th>Status</th>
+                     <th>Images</th>
+                     <th>Published by</th>
+                     <th>Title</th>
+                     <th>Description</th>
+                     <th></th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {{#if totalrows}}
+                  {{#each totalrows }}
+                  <tr data-promotionid={{promotionId}} data-sequence={{sequence}}>
+                     <td class="align-middle">
+                        <div class="dragdiv">
+                           <i class="fa fa-chevron-up"></i>
+                           <i class="fa fa-chevron-down"></i>
+                        </div>
+                     </td>
+                     {{!-- <td class="align-middle">{{moment startDate format="MM/DD/YYYY"}}</td>
+                     <td class="align-middle">{{moment endDate format="MM/DD/YYYY"}}</td> --}}
+                     <td class="align-middle">{{promotionstats status}}</td>
+                     <td class="align-middle">
+                        <img src="{{promotionImageUrl}}" class="borderradiussmall promoimg img-fluid d-block" alt="">
+                     </td>
+                     <td class="align-middle">{{User.firstName}} {{User.lastName}}</td>
+                     <td class="align-middle mxwpx-400">{{title}}</td>
+                     <td class="align-middle mxwpx-400">{{description}}</td>
+                     <td class="align-middle">
+                        <a href="/promotions/edit/{{promotionId}}?redirect={{../fullUrl}}" class="bigpencil mr-3"><i class="fa fa-pencil-alt"></i></a>
+                        {{#if 
+                           (or                              
+                              (eq status 1)
+                              (eq status 4)
+                           )
+                        }}
+                        <span class="m-switch m-switch--sm m-switch--success">
+                           <label class="m-0 d-block">
+                              <input type="checkbox" {{#eq status 1}}checked="checked"{{/eq}} class="promotionajaxbtn promotioncheck{{promotionId}}" data-cvalue="{{promotionId}}">
+                              <span></span>
+                           </label>
+                        </span>
+                        <div class="custloader promotionloader hide promotionl{{promotionId}}">
+                           <div class="m-spinner m-spinner--brand m-spinner--sm"></div>
+                           <div class="m-spinner m-spinner--primary m-spinner--sm"></div>
+                           <div class="m-spinner m-spinner--success m-spinner--sm"></div>
+                           <div class="m-spinner m-spinner--warning m-spinner--sm"></div>
+                           <div class="m-spinner m-spinner--danger m-spinner--sm"></div>
+                        </div>
+                        {{/if}}
+                     </td>
+                  </tr>
+                  {{/each}}
+                  {{else}}
+                  <tr>
+                     <td colspan="10" class="text-center">No records found</td>
+                  </tr>
+                  {{/if}}
+               </tbody>
+            </table>
+         </div>
+
+      </div>
+   </div>
+</div>
+
+<div class="actions m-4 ">
+   {{> paginate }}
+</div>

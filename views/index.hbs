@@ -1,0 +1,330 @@
+<div class="d-block mt-1">&nbsp;</div>
+<div class="m-4 mt-5">
+   <div class="row userwithicons">
+      <div class="col-xl-4">
+         <div class="m-portlet m-portlet--bordered-semi m-portlet--full-height ">
+            <div class="m-portlet__body">
+               <div class="row">
+                  <div class="col-auto">
+                     <div class="sbox lbluebox">
+                        <i class="fa fa-user"></i>
+                     </div>
+                  </div>
+                  <div class="col text-right">
+                     <div class="mt-4"></div>
+                     <div class="totaltext">Total User</div>
+                     <div class="mb-2"></div>
+                     <div class="totalcounts">{{totalUser.count}}</div>
+                  </div>
+               </div>
+               <div class="borderline"></div>
+               <div class="row ltextsrow mt-4">
+                  <div class="col-auto">
+                     <i class="fa fa-calendar-alt"></i>
+                     <span class="ml-1">Last 24 Hours</span>
+                  </div>
+                  <div class="col text-right">
+                     <span class="m--font-success">
+                        <i class="fa fa-arrow-up"></i> {{totalUser.totalIncreaseToday}}%
+                     </span>
+                     <span class="">Total User Increase In Today</span>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-xl-4">
+         <div class="m-portlet m-portlet--bordered-semi m-portlet--full-height ">
+            <div class="m-portlet__body">
+               <div class="row">
+                  <div class="col-auto">
+                     <div class="sbox lredbox">
+                        <i class="fa fa-store"></i>
+                     </div>
+                  </div>
+                  <div class="col text-right">
+                     <div class="mt-4"></div>
+                     <div class="totaltext">Total Vendor</div>
+                     <div class="mb-2"></div>
+                     <div class="totalcounts">{{totalVendor.count}}</div>
+                  </div>
+               </div>
+               <div class="borderline"></div>
+               <div class="row ltextsrow mt-4">
+                  <div class="col-auto">
+                     <i class="fa fa-calendar-alt"></i>
+                     <span class="ml-1">Last 24 Hours</span>
+                  </div>
+                  <div class="col text-right">
+                     <span class="m--font-success">
+                        <i class="fa fa-arrow-up"></i> {{totalVendor.totalIncreaseToday}}%
+                     </span>
+                     <span class="">Total User Increase In Today</span>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-xl-4">
+         <div class="m-portlet m-portlet--bordered-semi m-portlet--full-height ">
+            <div class="m-portlet__body">
+               <div class="row">
+                  <div class="col-auto">
+                     <div class="sbox lgreenbox">
+                        <i class="fa fa-user-check"></i>
+                     </div>
+                  </div>
+                  <div class="col text-right">
+                     <div class="mt-4"></div>
+                     <div class="totaltext">Active User</div>
+                     <div class="mb-2"></div>
+                     <div class="totalcounts">{{activeUser.count}}</div>
+                  </div>
+               </div>
+               <div class="borderline"></div>
+               <div class="row ltextsrow mt-4">
+                  <div class="col-auto">
+                     <i class="fa fa-calendar-alt"></i>
+                     <span class="ml-1">Last 24 Hours</span>
+                  </div>
+                  <div class="col text-right">
+                     <span class="m--font-success">
+                        <i class="fa fa-arrow-up"></i> {{activeUser.totalIncreaseToday}}%
+                     </span>
+                     <span class="">Total User Increase In Today</span>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="m-portlet m-portlet--mobile m-4 borderradiusbox">
+   <div class="m-portlet__body">
+      <div class="lighttxtcolor">
+         <div class="d-block font-s-12 fw-600 mb-5">Total User / Total Vendor / Active User</div>
+         <div id="m_gchart_1" style="height:400px;"></div>
+         <div class="d-block font-s-12 mt-5">
+            <div class="row justify-content-center charticons">
+               <div class="col-auto">
+                  <span><i class="fa fa-user lbluecolor"></i></span>
+                  <span class="chticntxt">Total User</span>
+               </div>
+               <div class="col-auto">
+                  <span><i class="fa fa-store lredcolor"></i></span>
+                  <span class="chticntxt">Total Vendor</span>
+               </div>
+               <div class="col-auto">
+                  <span><i class="fa fa-user-check lgreencolor"></i></span>
+                  <span class="chticntxt">Active User</span>               
+               </div>
+            </div>         
+         </div>
+      </div>
+   </div>
+</div>
+<input type="hidden" name="months" value="{{chartData.months}}">
+<input type="hidden" name="totalUser" value="{{chartData.totalUser}}">
+<input type="hidden" name="totalVendor" value="{{chartData.totalVendor}}">
+<input type="hidden" name="activeUser" value="{{chartData.activeUser}}">
+
+<div class="m-portlet m-portlet--mobile m-4 mt-5 borderradiusbox">
+   <div class="m-portlet__head">
+      <div class="m-portlet__head-caption">
+         <div class="">
+            <div class="d-block font-s-12 fw-600">Vendor Information</div>
+         </div>
+      </div>
+   </div>
+   <div class="m-portlet__body">
+      <div class="lighttxtcolor">
+         <form action="" method="GET">
+            <input type="hidden" name="sortBy" value="{{query.sortBy}}">
+            <input type="hidden" name="sortOrder" value="{{query.sortOrder}}">
+            <div class="m-form m-form--label-align-right m--margin-bottom-30">
+               <div class="row align-items-center justify-content-between">
+                  <div class="col-auto">
+                     <div class="m-form__group m-form__group--inline pt-0">
+                        <div class="m-form__label">
+                           <label>Show</label>
+                        </div>
+                        <div class="m-form__control selectdc">
+                           <select name="limit" class="form-control form-control-sm m-input m-input--solid">
+                              {{#each dropdownPages }}
+                              <option value="{{this}}" {{#eq this ../query.limit}} selected {{/eq}}>{{this}}</option>
+                              {{/each}}
+                              <option value="99999" {{#eq 99999 query.limit}} selected {{/eq}}>All</option>
+                           </select>
+                        </div>
+                        <span class="pl-2 m-form__control enttxt">Entries</span>
+                     </div>
+                     <div class="d-md-none m--margin-bottom-10"></div>
+                  </div>
+                  <div class="col-auto">
+                     <div class="m-input-icon m-input-icon--left tablesearch">
+                        <input type="text" name="search"
+                           class="form-control m-input m-input--transparent {{#if query.search}}focus{{/if}}"
+                           placeholder="Search" id="generalSearch" value="{{ query.search }}">
+                        <span class="m-input-icon__icon m-input-icon__icon--left">
+                           <span><i class="la la-search la-flip-horizontal"></i></span>
+                        </span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </form>
+
+         <div class="cus-table noborder table-responsive">
+            <table class="table m-table table-hover medwaction">
+               <thead class="thead-inverse">
+                  <tr>
+                     {{!-- <th>
+                        <label class="m-checkbox m-checkbox--bold m-checkbox--square valignsuper">
+                           <input type="checkbox" class="commoncheckall">
+                           <span></span>
+                        </label>
+                     </th> --}}
+                     <th>{{arrowUp "shopId" query }} {{arrowDown "shopId" query }} ID</th>
+                     <th>{{arrowUp "shopName" query }} {{arrowDown "shopName" query }} Vendor</th>
+                     <th>{{arrowUp "email" query }} {{arrowDown "email" query }} Contract Expiry</th>
+                     <th>{{arrowUp "phone" query }} {{arrowDown "phone" query }} Total User</th>
+                     <th>{{arrowUp "gender" query }} {{arrowDown "gender" query }} Total Active User</th>
+                     <th>{{arrowUp "points" query }} {{arrowDown "points" query }} Email</th>
+                     <th>{{arrowUp "status" query }} {{arrowDown "status" query }} Total Points</th>
+                     <th></th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {{#if totalrows}}
+                  {{#each totalrows }}
+                  <tr>
+                     {{!-- <td class="align-middle ">
+                        <label class="m-checkbox m-checkbox--bold m-checkbox--square valignsuper">
+                           <input type="checkbox" class="commoncheck" value="{{userId}}" data-username="{{username}}" data-role="{{role}}">
+                           <span></span>
+                        </label>
+                     </td> --}}
+                     <td class="align-middle">{{shopId}}</td>
+                     <td class="align-middle">{{shopName}}</td>
+                     <td class="align-middle">{{moment expiryDate format="MM/DD/YYYY"}}</td>
+                     <td class="align-middle">
+                        {{#if shopTotalUsers}}
+                        {{shopTotalUsers}}
+                        {{else}}
+                        0
+                        {{/if}}
+                     </td>
+                     <td class="align-middle">
+                        {{#if shopTotalActiveUsers}}
+                        {{shopTotalActiveUsers}}
+                        {{else}}
+                        0
+                        {{/if}}
+                     </td>
+                     <td class="align-middle">
+                        {{User.email}}
+                     </td>
+                     <td class="align-middle">
+                        {{#if shopTotalPoints}}
+                        {{shopTotalPoints}}
+                        {{else}}
+                        0
+                        {{/if}}
+                     </td>
+                     <td class="align-middle actiontd">
+                        {{!-- <a href="/users/edit/{{userId}}?redirect={{../fullUrl}}" class="orangecolor"><i class="fa fa-eye"></i></a> --}}
+                        <a href="/vendors/edit/{{shopId}}" class="orangecolor"><i class="fa fa-eye"></i></a>
+                     </td>
+                  </tr>
+                  {{/each}}
+                  {{else}}
+                  <tr>
+                     <td colspan="10" class="text-center p-4">No records found</td>
+                  </tr>
+                  {{/if}}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="actions m-4">
+   {{> paginate }}
+</div>
+
+<!--begin::Page Vendors -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+   //== Class definition
+   var GoogleChartsDemo = function () {
+
+      //== Private functions
+
+      var main = function () {
+         // GOOGLE CHARTS INIT
+         google.charts.load("current", {packages:['corechart']});
+
+         google.setOnLoadCallback(function () {
+            GoogleChartsDemo.runDemos();
+         });
+      }
+
+      var demoColumnCharts = function () {
+
+         var months = $("input[name=months]").val();
+         var monthsArray = months.split(",");
+         var totalUser = $("input[name=totalUser]").val();
+         var totalUserArray = totalUser.split(",");
+         var totalVendor = $("input[name=totalVendor]").val();
+         var totalVendorArray = totalVendor.split(",");
+         var activeUser = $("input[name=activeUser]").val();
+         var activeUserArray = activeUser.split(",");
+
+         var total_monthsdata = [['', 'Total User', 'Total Vendor', 'Active User']];
+         var i = 0;
+         monthsArray.forEach(function(item, index){
+            total_monthsdata.push([ item, parseInt(totalUserArray[i]), parseInt(totalVendorArray[i]), parseInt(activeUserArray[i]) ]);
+
+            i++;
+         });
+
+         var data = google.visualization.arrayToDataTable(total_monthsdata);
+
+         var options = {
+            hAxis: {
+               title: '',
+            },
+            vAxis: {
+               title: '',
+               format: 'decimal',
+               gridlines: {
+                  color: 'none'
+               },
+            },
+            bar: {
+               groupWidth: 30
+            },                       
+            legend: { position: "none" },
+            colors: ['#4db1c5', '#e7433f', '#47a34a'],
+            chartArea:{left:50,right:30,top:30,bottom:30,width:"100%",height:"100%"},
+         };
+
+         var chart = new google.visualization.ColumnChart(document.getElementById('m_gchart_1'));
+         chart.draw(data, options);
+      }
+
+      return {
+         // public functions
+         init: function () {
+            main();
+         },
+
+         runDemos: function () {
+            demoColumnCharts();
+         }
+      };
+   }();
+
+   GoogleChartsDemo.init();
+</script>

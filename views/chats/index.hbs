@@ -1,0 +1,69 @@
+<input type="hidden" name="currentuser" class="currentuser" value="{{user.username}}" />
+<input type="hidden" name="currentuserimg" class="currentuserimg" value="{{user.profilePictureLink}}" />
+<input type="hidden" name="currentroom" class="currentroom" value="" />
+<input type="hidden" name="currentoffset" class="currentoffset" value="0" />
+<input type="hidden" name="servercharurl" class="servercharurl" value="{{servercharurl}}" />
+
+<div class="row justify-content-xl-between h-100">
+   <div class="col-md-4">
+      <div class="m-portlet m-portlet--mobile borderradiusbox h-100">
+         <div class="m-portlet__body pb-0">
+            <div class="lighttxtcolor">
+               <div class="searchchats">
+                  <div class="form-group m-form__group">                     
+                     <div class="input-group">                        
+                        <input type="text" class="form-control m-input" placeholder="Search" name="searchchatsroom">
+                        <div class="input-group-append"><span class="input-group-text custlinearbg" id="basic-addon2"><i class="la la-search la-flip-horizontal"></i></span></div>
+                     </div>
+                  </div>
+               </div>
+               <div id="searchrooms" class="mt-5 pt-3 hide"></div>
+               <div id="rooms" class="mt-5 pt-3">
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-md-8">
+      <div class="m-portlet m-portlet--mobile borderradiusbox h-100 bgplusicons">
+         <div class="m-portlet__body h-100 position-relative p-0 onloadhide d-flex flex-column">
+            <div class="chatheader">
+               <div class="row align-items-center">
+                  <div class="col-auto chatheadpimg pr-0">
+                     <img src="" alt="">
+                  </div>
+                  <div class="col">
+                     <div class="nametxt"></div>
+                     <div class="lastseentxt"></div>
+                  </div>
+               </div>
+            </div>
+            <div class="chatbody mt-4 mb-4" id="conversation">
+            </div>
+            <div class="chatfooter mb-4n cdisabled">
+               <div class="row align-items-center">
+                  <div class="col" id="emojicontainer">
+                     <input type="text" id="data" class="datamessage form-control m-input m-input--air" placeholder="Type a message" data-emojiable="true" data-emoji-input="unicode">
+
+                     <label for="customChatFile" class="imagesendicon">
+                        <i class="fa-paperclip fa" aria-hidden="true"></i>
+                     </label>
+                     <input type="file" name="chatMsgImg" class="custom-file-input hide" onchange="sendChatImg(this)" id="customChatFile">
+                  </div>
+                  <div class="col-auto">
+                     <div id="datasend" class="">
+                        <i class="far fa-paper-plane"></i>
+                     </div>
+                     {{!-- <input type="button" id="datasend" value="send" />  --}}
+                  </div>
+               </div>
+            </div>
+            {{!-- <div class="lighttxtcolor">
+               <div id="conversation"></div>
+               <input id="data" style="width:200px;" />
+               <input type="button" id="datasend" value="send" />
+            </div> --}}
+         </div>
+      </div>
+   </div>
+</div>

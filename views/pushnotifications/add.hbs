@@ -1,0 +1,294 @@
+{{!-- Push Notification Starts --}}
+<div class="m-portlet m-4 mt-5 borderradiusbox lighttxtcolor">
+   <form id="pushnotifications_add" method="POST" action="/pushnotifications/addnew"  class="m-form m-form--fit1">
+   <input type="hidden" name="userIdArray" value="">
+   <input type="hidden" name="shopIdArray" value="">
+   <div class="m-portlet__head">
+      <div class="m-portlet__head-caption">
+         <div class="">            
+            <div class="d-block font-s-12 fw-600">Push Notification Details</div>
+         </div>         
+      </div>
+      {{!-- <div class="m-portlet__head-tools">
+         <span class="m-switch m-switch--success">
+            <label class="m-0 d-block">
+               <input type="checkbox" {{#if data.status}}checked="checked"{{/if}} class="statusbtn">
+               <span></span>
+            </label>
+         </span>
+      </div> --}}
+   </div>
+   <div class="m-portlet__body bgwhitelight brbottomlr">
+      <div class="form-group m-form__group1 row">
+         <div class="col-md-4 mob-mt-3">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="title">Title</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="text" name="title" value="" id="title" class="form-control m-input" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 mob-mt-3">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="date">Schedule</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="text" name="date" value="" id="date" class="form-control m-input m_datepicker" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-calendar"></i></span></span>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 mob-mt-3">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="time">Time</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="text" name="time" value="10:00:00" id="time" class="form-control m-input m_timepicker" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-clock-o"></i></span></span>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="form-group m-form__group1 row mt-md-4">
+         <div class="col-md-8">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-2">
+                  <label class="m-xl-0" for="description">Description</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <textarea name="description" class="form-control m-input" id="description" rows="3"></textarea>                     
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>                  
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="form-group row mt-md-4">
+         <div class="col-md-8">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-2">
+                  <label class="m-xl-0" for="description"></label>
+               </div>
+               <div class="col">  
+                  <div class="m-form__group">
+                     <div class="m-checkbox-inline pntyperadios">                        
+                        <label class="m-checkbox m-checkbox--bold m-checkbox--square">
+                           <input type="radio" name="type" value="1"> User
+                           <span></span>
+                        </label>
+                        <label class="m-checkbox m-checkbox--bold m-checkbox--square">
+                           <input type="radio" name="type" value="2"> Vendor
+                           <span></span>
+                        </label>                     
+                     </div>
+                     <div class="m-form__help"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      
+      <div class="row mt-5 align-items-center">
+         <div class="col-lg-12 m--valign-middle">
+            <button type="submit" name="status" value="1" class="btn btn-primary m-btn m-btn--custom fw-600 mr-2">Publish</button>
+            <button type="submit" name="status" value="2" class="btn btn-danger m-btn m-btn--custom fw-600">Draft</button>
+         </div>
+      </div>
+   </div>
+   </form>
+</div>
+{{!-- Push Notification Ends --}}
+
+<!--begin::Modal-->
+<div class="modal fade" id="userpopupone" tabindex="-1" role="dialog" aria-labelledby="userpopuponeLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title fw-600" id="userpopuponeLabel">Pick Vendor Selection</h5>
+            <div class="row align-items-center justify-content-end">
+               <div class="col-auto">
+                  <div class="m-input-icon m-input-icon--left tablesearch">
+                     <input type="text" name="uposearch" class="form-control m-input m-input--transparent uposearch" placeholder="Search" value="">
+                     <span class="m-input-icon__icon m-input-icon__icon--left">
+                        <span><i class="la la-search la-flip-horizontal"></i></span>
+                     </span>
+                  </div>
+                  <div class="d-md-none m--margin-bottom-10"></div>
+               </div>
+               <div class="col-auto">                  
+                  <div class="m-form__group m-form__group--inline pt-0">
+                     <div class="m-form__control selectdc">                        
+                        <select name="uposearchin" class="form-control form-control-sm m-input m-input--solid uposearchin">
+                           <option value="">Category</option>                           
+                           {{#each categories }}
+                              <option value="{{categoryText}}">{{categoryText}}</option>
+                           {{/each}}
+                        </select>                        
+                     </div>                              
+                  </div>                           
+               </div>                        
+            </div>
+         </div>
+         <div class="modal-body">
+            <!--begin::Portlet-->
+            <div class="custscroller">
+               <div class="uporesults_1"></div>
+            </div>
+            <div class="d-block mt-5">
+               <h5 class="m-0">Selected</h4>
+            </div>
+            <div class="uposelected_1 mt-3"></div>
+            <!--end::Portlet-->
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="font-s-10 fw-500 btn btn-success upoconfirm pl-4 pr-4">Confirm</button>
+            <button type="button" class="font-s-10 fw-500 btn btn-danger pl-4 pr-4 upocancel">Cancel</button>
+         </div>         
+      </div>
+   </div>
+</div>
+<!--end::Modal-->
+
+<!--begin::Modal-->
+<div class="modal fade" id="vendorpopupone" tabindex="-1" role="dialog" aria-labelledby="vendorpopuponeLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title fw-600" id="vendorpopuponeLabel">Pick User Selection</h5>
+            <div class="row align-items-center justify-content-end vposearchbar">
+               <div class="col-auto vposearchinvendor">
+                  <div class="m-input-icon m-input-icon--left tablesearch">
+                     <input type="text" name="vposearch" class="form-control m-input m-input--transparent vposearch" placeholder="Search" value="">
+                     <span class="m-input-icon__icon m-input-icon__icon--left">
+                        <span><i class="la la-search la-flip-horizontal"></i></span>
+                     </span>
+                  </div>
+                  <div class="d-md-none m--margin-bottom-10"></div>
+               </div>
+               <div class="col-auto vposearchinvendor">
+                  <div class="m-form__group m-form__group--inline pt-0">
+                     <div class="m-form__control selectdc">                        
+                        <select name="vposearchin" class="form-control form-control-sm m-input m-input--solid vposearchin">
+                           <option value="">Category</option>                       
+                           {{#each categories }}
+                              <option value="{{categoryText}}">{{categoryText}}</option>
+                           {{/each}}
+                        </select>                        
+                     </div>                              
+                  </div>                           
+               </div>
+               <div class="col-auto vposearchinuser" style="display: none;">
+                  <div class="m-input-icon m-input-icon--left tablesearch">
+                     <input type="text" name="vposearchuser" class="form-control m-input m-input--transparent vposearchuser" placeholder="Search" value="">
+                     <span class="m-input-icon__icon m-input-icon__icon--left">
+                        <span><i class="la la-search la-flip-horizontal"></i></span>
+                     </span>
+                  </div>
+                  <div class="d-md-none m--margin-bottom-10"></div>
+               </div>                       
+            </div>
+         </div>
+         <div class="modal-body">
+            <!--begin::Portlet-->
+            <div class="m-portlet--tabs">               
+               <div class="tab-content">
+                  <div class="tab-pane active" id="vendorpopupone_1" role="tabpanel">
+                     <div class="custscroller">
+                        <div class="vporesults_1"></div>
+                     </div>                     
+                  </div>
+                  <div class="tab-pane" id="vendorpopupone_2" role="tabpanel">
+                     <div class="d-block mb-3">
+                        <h4 class="m-0">Advanced Filter</h4>
+                     </div>
+                     <div class="m-form">
+                        <div class="m-form__group">
+                           <label for="">Gender</label>
+                           <div class="m-checkbox-inline">                        
+                              <label class="m-checkbox m-checkbox--bold m-checkbox--square">
+                                 <input type="checkbox" name="vpogender" value="Male"> Male
+                                 <span></span>
+                              </label>
+                              <label class="m-checkbox m-checkbox--bold m-checkbox--square">
+                                 <input type="checkbox" name="vpogender" value="Female"> Female
+                                 <span></span>
+                              </label>                     
+                           </div>                        
+                        </div>
+                        <div class="m-form__group">
+                           <label for="">Total Points</label>
+                           <input type="hidden" name="vpotpstart" id="vpotpstart" value="0">
+                           <input type="hidden" name="vpotpend" id="vpotpend" value="1000">
+                           <div class="d-block mt-5">
+                              <div id="m_nouislider_t" class="m-nouislider m-nouislider--handle-warning m-nouislider--connect-warning"></div>
+                           </div>
+                        </div>
+                        <div class="m-form__group">
+                           <label for="">Account Activity</label>
+                           <div class="m-checkbox-inline">                        
+                              <label class="m-checkbox m-checkbox--bold m-checkbox--square">
+                                 <input type="checkbox" name="vpoaccountact" value="1"> Active
+                                 <span></span>
+                              </label>
+                              <label class="m-checkbox m-checkbox--bold m-checkbox--square">
+                                 <input type="checkbox" name="vpoaccountact" value="0"> Non-Active
+                                 <span></span>
+                              </label>                     
+                           </div>                        
+                        </div>
+                     </div>                 
+                  </div>
+                  <div class="tab-pane" id="vendorpopupone_3" role="tabpanel">
+                     <div class="custscroller">
+                        <div class="vpousers_1"></div>
+                     </div>
+                  </div>
+               </div>
+               <div class="d-block mt-5">
+                  <h5 class="m-0">Selected</h4>
+               </div>
+               <div class="vposelected_1 mt-3"></div>                 
+            </div>
+            <!--end::Portlet-->
+
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="font-s-10 fw-500 btn btn-primary vponext m-btn pl-4 pr-4" data-tabtype="next" data-ctab="2">  
+               <span>Next</span>
+               <i class="fa fa-angle-right ml-2"></i>
+            </button>
+
+            <button type="button" class="font-s-10 fw-500 btn btn-primary vpoprev pl-4 pr-4" data-tabtype="prev" data-ctab="1">
+               <i class="fa fa-angle-left mr-2"></i>
+               <span>Previous</span>
+            </button>
+            <button type="button" class="font-s-10 fw-500 btn btn-primary vponext m-btn pl-4 pr-4" data-tabtype="next" data-ctab="3">  
+               <span>Next</span>
+               <i class="fa fa-angle-right ml-2"></i>
+            </button>
+
+            <button type="button" class="font-s-10 fw-500 btn btn-primary vpoprev pl-4 pr-4" data-tabtype="prev" data-ctab="2">
+               <i class="fa fa-angle-left mr-2"></i>
+               <span>Previous</span>
+            </button>
+
+            <button type="button" class="font-s-10 fw-500 btn btn-success vpoconfirm pl-4 pr-4">Confirm</button>
+
+            <button type="button" class="font-s-10 fw-500 btn btn-danger pl-4 pr-4 vpocancel">Cancel</button>
+         </div>         
+      </div>
+   </div>
+</div>
+<!--end::Modal-->

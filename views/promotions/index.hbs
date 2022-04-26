@@ -1,0 +1,119 @@
+<div class="m-4">
+   <ul class="statusul list-unstyled list-inline">
+      <li class="list-inline-item {{#eq "allpromo" surl}} active {{/eq}}">
+         <a href="/promotions/allpromo">All</a>
+      </li>
+      <li class="list-inline-item">/</li>
+      <li class="list-inline-item {{#eq "1" query.status}} active {{/eq}}">
+         <a href="/promotions/allpromo?status=1">Ongoing</a>
+      </li>
+      <li class="list-inline-item">/</li>
+      <li class="list-inline-item {{#eq "0" query.status}} active {{/eq}}">
+         <a href="/promotions/allpromo?status=0">Pending</a>
+      </li>
+      <li class="list-inline-item">/</li>
+      <li class="list-inline-item {{#eq "4" query.status}} active {{/eq}}">
+         <a href="/promotions/allpromo?status=4">Previous</a>
+      </li>
+      <li class="list-inline-item">/</li>
+      <li class="list-inline-item {{#eq "2" query.status}} active {{/eq}}">
+         <a href="/promotions/allpromo?status=2">Rejected</a>
+      </li>
+      <li class="list-inline-item">/</li>
+      <li class="list-inline-item {{#eq "3" query.status}} active {{/eq}}">
+         <a href="/promotions/allpromo?status=3">Expired</a>
+      </li>
+      <li class="list-inline-item">/</li>
+      <li class="list-inline-item {{#eq "5" query.status}} active {{/eq}}">
+         <a href="/promotions/allpromo?status=5">Draft</a>
+      </li>
+   </ul>
+</div>
+
+<div class="m-portlet m-portlet--mobile m-4 borderradiusbox">
+   <div class="m-portlet__body">
+      <div class="lighttxtcolor">
+         <form action="" method="GET">
+            <input type="hidden" name="sortBy" value="{{query.sortBy}}">
+            <input type="hidden" name="sortOrder" value="{{query.sortOrder}}">
+            <div class="m-form m-form--label-align-right m--margin-bottom-30">
+               <div class="row align-items-center justify-content-between">
+                  <div class="col-auto">                  
+                     <div class="m-form__group m-form__group--inline pt-0">
+                        <div class="m-form__label">
+                           <label>Show</label>
+                        </div>
+                        <div class="m-form__control selectdc">                        
+                           <select name="limit" class="form-control form-control-sm m-input m-input--solid">
+                              {{#each dropdownPages }}
+                              <option value="{{this}}" {{#eq this ../query.limit}} selected {{/eq}}>{{this}}</option>
+                              {{/each}}
+                              <option value="99999" {{#eq 99999 query.limit}} selected {{/eq}}>All</option>                    
+                           </select>                        
+                        </div>
+                        <span class="pl-2 m-form__control enttxt">Entries</span>
+                     </div>
+                     <div class="d-md-none m--margin-bottom-10"></div>
+                  </div>
+                  <div class="col-auto">
+                     <div class="m-input-icon m-input-icon--left tablesearch">
+                        <input type="text" name="search" class="form-control m-input m-input--transparent {{#if query.search}}focus{{/if}}" placeholder="Search" id="generalSearch" value="{{ query.search }}">
+                        <span class="m-input-icon__icon m-input-icon__icon--left">
+                           <span><i class="la la-search la-flip-horizontal"></i></span>
+                        </span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </form>
+
+         <div class="cus-table noborder table-responsive">
+            <table class="table m-table table-hover medwaction">
+               <thead class="thead-inverse">
+                  <tr>
+                     <th>{{arrowUp "promotionId" query }} {{arrowDown "promotionId" query }} ID</th>
+                     <th>{{arrowUp "shopName" query }} {{arrowDown "shopName" query }} Vendor/User</th>
+                     <th>{{arrowUp "title" query }} {{arrowDown "title" query }} Title</th>
+                     <th>{{arrowUp "description" query }} {{arrowDown "description" query }} Description</th>
+                     {{!-- <th nowrap>{{arrowUp "startDate" query }} {{arrowDown "endDate" query }} Schedule</th> --}}
+                     <th>{{arrowUp "status" query }} {{arrowDown "status" query }} Status</th>
+                     <th></th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {{#if totalrows}}
+                  {{#each totalrows }}
+                  <tr>
+                     <td class="align-middle">{{promotionId}}</td>
+                     <td class="align-middle">
+                     {{#if isShopPromo}}
+                        {{Shop.shopName}} (Vendor)
+                     {{else}}
+                        {{User.firstName}} {{User.lastName}} (User)
+                     {{/if}}
+                     </td>
+                     <td class="align-middle mxwpx-400">{{title}}</td>
+                     <td class="align-middle mxwpx-400">{{description}}</td>
+                     {{!-- <td class="align-middle">{{moment startDate format="MM/DD/YYYY"}} - {{moment endDate format="MM/DD/YYYY"}}</td> --}}
+                     <td class="align-middle">{{promotionstats status}}</td>                     
+                     <td class="align-middle actiontd">                        
+                        <a href="/promotions/edit/{{promotionId}}?redirect={{../fullUrl}}" class="orangecolor"><i class="fa fa-eye"></i></a>
+                     </td>
+                  </tr>
+                  {{/each}}
+                  {{else}}
+                  <tr>
+                     <td colspan="10" class="text-center">No records found</td>
+                  </tr>
+                  {{/if}}
+               </tbody>
+            </table>
+         </div>
+
+      </div>
+   </div>
+</div>
+
+<div class="actions m-4 ">
+   {{> paginate }}
+</div>

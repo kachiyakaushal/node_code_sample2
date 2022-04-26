@@ -1,0 +1,92 @@
+{{!-- Tier Starts --}}
+<div class="m-portlet m-4 mt-5 borderradiusbox lighttxtcolor">
+   <form id="shop_edit_tier" method="POST" action="/vendors/tier/addnew"  class="m-form m-form--fit1">
+   <input type="hidden" name="shopId" value="{{shopId}}" />
+   <input type="hidden" name="status" value="1" />
+   <div class="m-portlet__head">
+      <div class="m-portlet__head-caption">
+         <div class="">            
+            <div class="d-block font-s-12 fw-600">Add Tier</div>
+         </div>         
+      </div>
+      <div class="m-portlet__head-tools">
+         <span class="m-switch m-switch--success">
+            <label class="m-0 d-block">
+               <input type="checkbox" checked="checked" class="statusbtn">
+               <span></span>
+            </label>
+         </span>
+      </div>
+   </div>
+   <div class="m-portlet__body bgwhitelight brbottomlr">
+      <div class="form-group m-form__group1 row">
+         <div class="col-md-4">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="tierName">Tier Name</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="text" name="tierName" value="" id="tierName" class="form-control m-input" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 mob-mt-3">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="amount">Amount</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="text" name="amount" value="" id="amount" class="form-control m-input" min="1" placeholder="">
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 mob-mt-3">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-4">
+                  <label class="m-xl-0" for="phone">Tier Type</label>
+               </div>
+               <div class="col">
+                  <div class="selectdc sfnormal">
+                     <select name="tierType" class="form-control m-input">
+                        {{#each tierTypes }}
+                        <option value="{{this}}">{{this}}</option>
+                        {{/each}}                                          
+                     </select>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="form-group m-form__group1 row mt-md-4">
+         <div class="col-md-8">
+            <div class="row align-items-center">
+               <div class="col-12 col-xl-2">
+                  <label class="m-xl-0" for="description">Description</label>
+               </div>
+               <div class="col">
+                  <div class="m-input-icon m-input-icon--right">
+                     <textarea name="description" class="form-control m-input" id="description" rows="3"></textarea>                     
+                     <span class="m-input-icon__icon m-input-icon__icon--right"><span><i class="la la-pencil"></i></span></span>
+                  </div>                  
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4"></div>
+      </div>
+      
+      <div class="row mt-5 align-items-center">
+         <div class="col-lg-12 m--valign-middle">
+            <button type="submit" class="btn btn-primary m-btn m-btn--custom fw-600">Submit</button>
+            <a href="/vendors/edit/{{shopId}}" class="btn btn-warning whitefont m-btn m-btn--custom fw-600 ml-2">Cancel</a>
+         </div>
+      </div>
+   </div>
+   </form>
+</div>
+{{!-- Tier Ends --}}
